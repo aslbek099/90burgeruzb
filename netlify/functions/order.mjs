@@ -1,4 +1,5 @@
 import { getStore } from "@netlify/blobs";
+import { randomUUID } from "node:crypto";
 
 const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 const cut = (s, n) => String(s ?? "").slice(0, n);
@@ -12,6 +13,7 @@ function telegramText(o) {
     (o.mode === "delivery" ? `🏠 ${esc(o.addr) || "—"}${map}\n` : "") +
     `\n${o.items.map(i => `• ${esc(i.n)} × ${i.q}`).join("\n")}\n` +
     (o.comment ? `\n💬 ${esc(o.comment)}\n` : "") +
+    (o.mode === "delivery" ? `\n🚚 Kuryer puli: ${som(o.fee)} (manzilga qarab o'zgarishi mumkin)` : "") +
     `\n💰 <b>Jami: ${som(o.total)}</b> (${esc(o.paid)})`;
 }
 
@@ -30,8 +32,9 @@ export default async (req) => {
 
   const time = Date.now();
   const subtotal = items.reduce((a, i) => a + i.p * i.q, 0);
-  const fee = Math.max(0, +b.fee || 0);
   const mode = b.mode === "pickup" ? "pickup" : "delivery";
+  // Dastlabki kuryer puli (sotuvchi panelda manzilga qarab o'zgartiradi). DELIVERY_FEE muhit o'zgaruvchisi bilan ham o'zgartirsa bo'ladi.
+  const fee = mode === "delivery" ? Math.max(0, Number(process.env.DELIVERY_FEE ?? 15000) || 0) : 0;
   const o = {
     id: /^№\d{6}$/.test(b.id) ? b.id : "№" + String(time).slice(-6),
     time, status: "new", mode, name, phone,
@@ -43,8 +46,9 @@ export default async (req) => {
   };
 
   let saved = false, sent = false;
+  const key = `${time}-${randomUUID().replace(/-/g, "").slice(0, 12)}`;
   try {
-    await getStore("orders").setJSON(`${time}-${Math.random().toString(36).slice(2, 6)}`, o);
+    await getStore("orders").setJSON(key, o);
     saved = true;
   } catch (e) { console.log("Saqlashda xato:", e?.message); }
 
@@ -60,7 +64,7 @@ export default async (req) => {
   }
 
   if (!saved && !sent) return new Response("Buyurtma saqlanmadi", { status: 500 });
-  return Response.json({ ok: true, id: o.id });
+  return Response.json({ ok: true, id: o.id, key: saved ? key : null });
 };
 
 export const config = { path: "/api/order" };
