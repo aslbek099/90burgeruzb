@@ -1,7 +1,8 @@
 {
   "name": "90burgeruzb",
-  "pages_build_output_dir": "./public",
+  "main": "src/worker.js",
   "compatibility_date": "2025-09-01",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
   "kv_namespaces": [
     { "binding": "ORDERS", "id": "5abb20aa878141d6b6f05cf9d960dbe8" }
   ],
