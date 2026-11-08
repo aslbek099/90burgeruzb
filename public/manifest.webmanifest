@@ -1,7 +1,7 @@
 {
   "name": "90 Burger Shovot",
-  "short_name": "90 Burger",
-  "description": "Shovotda burger, lavash, hot-dog va pitsa yetkazib berish",
+  "short_name": "90 BURGER",
+  "description": "90 Burger Shovot: to’yimli, tez va mazali!\n\nShovotda burger, lavash, hot-dog yoki pitsa yegingiz kelsa, 90 Burger sizni kutmoqda. Bizda har bir taom e’tibor bilan tayyorlanadi: yumshoq non, sershira go’sht, yangi sabzavotlar va o’zimizning maxsus sousimiz.\n\n🍔 Gamburger va xaggi\n🌯 Lavash\n🌭 Hot-dog\n🍕 Pitsa\n\nBuyurtma berish juda oson: saytga kiring, menyudan tanlang, manzilingizni yozing, biz esa issiq taomni eshigingizgacha yetkazamiz. To’lov naqd, kuryerga topshirasiz. Xohlasangiz, o’zingiz kelib olib ketishingiz ham mumkin.\n\n90 Burger bilan ovqat tanlash oson, mazasi esa unutilmas.",
   "lang": "uz",
   "start_url": "/",
   "scope": "/",
@@ -10,8 +10,31 @@
   "background_color": "#ffffff",
   "theme_color": "#e8431a",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/",
+  "prefer_related_applications": false,
+  "categories": [
+    "business"
+  ],
+  "display_override": [
+    "standalone"
   ]
 }
