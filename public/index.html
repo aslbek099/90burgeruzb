@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>90 Burger Shovot</title>
+<title>90 Burger Shovot</title><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#e8431a"><link rel="icon" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 :root{--bg:#cfd2d6;--bg2:#bec2c8;--card:#e3e5e8;--text:#15171a;--muted:#4a4f57;--line:#adb1b8;--accent:#e8431a;--accent2:#ffb703;--ok:#1f9d55}
 [data-theme="dark"]{--bg:#0f0f10;--bg2:#17171a;--card:#1d1d21;--text:#f2f2f2;--muted:#a0a0a8;--line:#2e2e34}
@@ -511,5 +511,5 @@ async function cancelMy(k,b){
 
 renderTabs();renderGrid();save();route();
 </script>
-</body>
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))</script></body>
 </html>
