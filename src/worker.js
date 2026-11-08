@@ -150,9 +150,20 @@ async function myOrders(req, env) {
   return json(out);
 }
 
+// Android ilovani (TWA) saytga bog'laydigan tasdiqlash fayli
+const ASSETLINKS = [{
+  relation: ["delegate_permission/common.handle_all_urls"],
+  target: {
+    namespace: "android_app",
+    package_name: "dev.workers.app_90burgeruz.app_90burgeruzb.twa",
+    sha256_cert_fingerprints: ["9E:48:01:36:87:AF:35:4B:E7:46:59:C0:31:5D:B2:FD:D1:A8:A7:14:10:BA:CA:1E:02:93:F2:55:18:08:00:9B"]
+  }
+}];
+
 export default {
   async fetch(req, env) {
     const { pathname } = new URL(req.url);
+    if (pathname === "/.well-known/assetlinks.json") return new Response(JSON.stringify(ASSETLINKS), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" } });
     try {
       if (pathname === "/api/order") return req.method === "POST" ? await createOrder(req, env) : new Response("Method not allowed", { status: 405 });
       if (pathname === "/api/orders") return await adminOrders(req, env);
